@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/dotenv,images,macos,linux,windows,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotenv,images,macos,linux,windows,venv
 
+CORE.db
+test.py
+
 ### dotenv ###
 .env
 
