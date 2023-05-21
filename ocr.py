@@ -9,4 +9,4 @@ async def perform_ocr(image_path):
     return text
 
 # Print the text
-print(f'texto: {text}')
+#print(f'texto: {text}')

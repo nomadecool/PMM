@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from odbc import write_data, read_sql, one_sql
 
 load_dotenv()  # take environment variables from .env.
 TOKEN = os.getenv('TOKEN')
@@ -26,6 +27,14 @@ async def help_command(update, context):
         help_text = 'Raul, de verdad necesitas ayuda???'
     else:
         help_text = 'There is not help because, This is a private test bot, sorry!'
+    await update.message.reply_text(help_text)
+
+
+async def log_command(update, context):
+    if update.message.chat.id == ID_USER:
+        help_text = read_sql('select * from logs limit 10')
+    else:
+        help_text = 'There is not log because, This is a private test bot, sorry!'
     await update.message.reply_text(help_text)
 
 
@@ -82,6 +91,7 @@ if __name__ == '__main__':
     # commands
     app.add_handler(CommandHandler('start', start_command))
     app.add_handler(CommandHandler('help', help_command))
+    app.add_handler(CommandHandler('log', log_command))
 
     app.add_handler(MessageHandler(filters.TEXT, handle_message))
     app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
