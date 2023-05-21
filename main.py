@@ -1,8 +1,6 @@
-# from typing import final
-#import telegram
-import pytesseract
-import io
-from PIL import Image, ImageEnhance
+### PMM - Personal Money Management
+
+from ocr import perform_ocr
 from dotenv import load_dotenv
 import os
 from telegram import Update
@@ -52,7 +50,7 @@ async def handle_message(update, context):
             response: str = handle_responses(new_text)
         else:
             return
-    if update.message.chat.id == ID_USER:
+    elif update.message.chat.id == ID_USER:
         response: str = handle_responses(text)
 
     else:
@@ -70,27 +68,9 @@ async def handle_photo(update: Update, context):
 
     # Get the path to the image
     image_path = 'file_name.jpg'
-
-    # Read the image
-    image = Image.open(image_path)
-
-    # Create a contrast enhancer
-    enhancer = ImageEnhance.Contrast(image)
-
-    # Increase the contrast by 200%
-    enhanced_image = enhancer.enhance(200)
-
-    # Convert the image to text
-    text = pytesseract.image_to_string(enhanced_image)
+    text = perform_ocr(image_path)
 
     await update.message.reply_text(text)
-    #photo_id = update.message.photo[-1].file_unique_id
-    #print(photo_id)
-
-    # Get the photo file using the file ID
-    #photo_info = await telegram.Bot.get_file(photo_id)
-    #photo_url = f'https://api.telegram.org/file/bot{TOKEN}/{photo_info.file_path}'
-    #print (photo_info)
 
 async def error(update, context):
     print(f'Update {update} caused error {context.error}')

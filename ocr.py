@@ -1,20 +1,12 @@
 import pytesseract
 from PIL import Image, ImageEnhance
 
-# Get the path to the image
-image_path = 'file_name.jpg'
-
-# Read the image
-image = Image.open(image_path)
-
-# Create a contrast enhancer
-enhancer = ImageEnhance.Contrast(image)
-
-# Increase the contrast by 200%
-enhanced_image = enhancer.enhance(200)
-
-# Convert the image to text
-text = pytesseract.image_to_string(enhanced_image)
+async def perform_ocr(image_path):
+    image = Image.open(image_path)
+    enhancer = ImageEnhance.Contrast(image)
+    enhanced_image = enhancer.enhance(200)
+    text = pytesseract.image_to_string(enhanced_image)
+    return text
 
 # Print the text
 print(f'texto: {text}')
