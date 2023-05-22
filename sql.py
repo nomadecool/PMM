@@ -1,4 +1,4 @@
-from odbc import some_database_operation, write_data, table_in, read_sql, hash
+from odbc import some_database_operation, table_in, read_sql, hash
 import os
 
 
@@ -74,7 +74,7 @@ def create_table():
 
         CREATE TABLE IF NOT EXISTS logs (
             id_log INTEGER PRIMARY KEY AUTOINCREMENT,
-            id_table INTEGER,
+            type TEXT,
             date_create TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now')),
             data TEXT
         );
@@ -90,7 +90,7 @@ sql_statements = {
                   VALUES (?, ?, ?, ?, ?, ?, ?)""",
     'table_info': """INSERT INTO table_info (table_name, sql_in, sql_out)
                      VALUES (?, ?, ?)""",
-    'logs': """INSERT INTO logs (id_table, data)
+    'logs': """INSERT INTO logs (type, data)
                VALUES (?, ?)""",
     'type_move': """INSERT INTO type_move (description, sign)
                     VALUES (?, ?)""",
@@ -111,11 +111,11 @@ if __name__ == '__main__':
     create_table()
 
     for table_name, sql in sql_statements.items():
-        write_data('''INSERT INTO table_info (table_name, sql_in, sql_out)
+        some_database_operation('''INSERT INTO table_info (table_name, sql_in, sql_out)
                      VALUES (?, ?, ?)''', (table_name, sql, None))
 
     print(read_sql("select * from table_info"))
 
     values = (os.getenv('ID_USER'), os.getenv('FIRST_NAME'), os.getenv('USERNAME'), os.getenv('USER_MAIL'), hash(os.getenv('PASSWORD')), '1', 'es')
-    write_data(table_in('account'), values)
+    some_database_operation(table_in('account'), values)
 

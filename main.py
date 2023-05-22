@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from odbc import write_data, read_sql, one_sql, write_log
+from odbc import read_sql, write_log
 
 load_dotenv()  # take environment variables from .env.
 TOKEN = os.getenv('TOKEN')
@@ -77,7 +77,7 @@ async def handle_photo(update: Update, context):
 
     # Get the path to the image
     image_path = 'file_name.jpg'
-    text = perform_ocr(image_path)
+    text = await perform_ocr(image_path)
 
     await update.message.reply_text(text)
 

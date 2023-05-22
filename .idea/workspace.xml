@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7cb14a6-f6ec-43ec-a9db-409b7c79e782" name="Changes" comment=".gitignore update">
+    <list default="true" id="b7cb14a6-f6ec-43ec-a9db-409b7c79e782" name="Changes" comment="update log write.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ocr.py" beforeDir="false" afterPath="$PROJECT_DIR$/ocr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/odbc.py" beforeDir="false" afterPath="$PROJECT_DIR$/odbc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +237,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684736263778</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="update log write.">
+      <created>1684745422355</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684745422355</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -247,6 +257,7 @@
     <MESSAGE value="update .gitignore" />
     <MESSAGE value="add odbc work" />
     <MESSAGE value=".gitignore update" />
-    <option name="LAST_COMMIT_MESSAGE" value=".gitignore update" />
+    <MESSAGE value="update log write." />
+    <option name="LAST_COMMIT_MESSAGE" value="update log write." />
   </component>
 </project>

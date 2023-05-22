@@ -18,13 +18,25 @@ def some_database_operation(sql, values=None, is_script=False):
     with get_database_connection() as conn:
         cursor = conn.cursor()
         if is_script:
-            cursor.executescript(sql)
+            try:
+                cursor.executescript(sql)
+            except Exception as e:
+                table_name = extract_table_name(sql)
+                write_log(table_name, e)
         else:
             # Comprobar si tenemos valores para incluir en la consulta
             if values:
-                cursor.execute(sql, values)
+                try:
+                    cursor.execute(sql, values)
+                except Exception as e:
+                    table_name = extract_table_name(sql)
+                    write_log(table_name, e)
             else:
-                cursor.execute(sql)
+                try:
+                    cursor.execute(sql)
+                except Exception as e:
+                    table_name = extract_table_name(sql)
+                    write_log(table_name, e)
         conn.commit()
     print(f"Closed database connection with id {id(conn)}")
 
@@ -34,7 +46,7 @@ def some_database_operation(sql, values=None, is_script=False):
 
 def write_log(category, error):
     error_message = str(error)
-    sql_log = """INSERT INTO logs (id_table, data) VALUES (?, ?)"""
+    sql_log = """INSERT INTO logs (type, data) VALUES (?, ?)"""
     values_log = (category, error_message)
     try:
         some_database_operation(sql_log, values_log)
