@@ -32,11 +32,10 @@ def some_database_operation(sql, values=None, is_script=False):
 
 
 
-def write_log(sql, error):
-    table_name = extract_table_name(sql)
+def write_log(category, error):
     error_message = str(error)
     sql_log = """INSERT INTO logs (id_table, data) VALUES (?, ?)"""
-    values_log = (table_name, error_message)
+    values_log = (category, error_message)
     try:
         some_database_operation(sql_log, values_log)
     except Exception as e:

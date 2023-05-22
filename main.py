@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-from odbc import write_data, read_sql, one_sql
+from odbc import write_data, read_sql, one_sql, write_log
 
 load_dotenv()  # take environment variables from .env.
 TOKEN = os.getenv('TOKEN')
@@ -82,6 +82,7 @@ async def handle_photo(update: Update, context):
     await update.message.reply_text(text)
 
 async def error(update, context):
+    write_log(update, context.error)
     print(f'Update {update} caused error {context.error}')
 
 
