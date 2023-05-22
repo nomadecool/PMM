@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotenv,images,macos,linux,windows,venv
 
 CORE.db
-test.py
+testing.py
 
 ### dotenv ###
 .env
