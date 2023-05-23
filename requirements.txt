@@ -1,4 +1,5 @@
 python-telegram-bot
 python-dotenv
 pytesseract
+pdf2image
 Pillow

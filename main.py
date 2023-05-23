@@ -81,6 +81,22 @@ async def handle_photo(update: Update, context):
 
     await update.message.reply_text(text)
 
+
+async def handle_pdf(update: Update, context):
+    # Get the document from the message
+    document = update.message.document
+    #mime_type = document.mime_type
+
+    if document.mime_type == 'application/pdf':
+        print('PDF received.')
+        # Your code for handling the PDF goes here
+        pdf_file_id = document.file_id
+        new_file = await context.bot.get_file(pdf_file_id)
+        await new_file.download_to_drive('file_name.pdf')
+        text = await perform_ocr('file_name.pdf', is_pdf=True)
+
+    await update.message.reply_text(text)
+
 async def error(update, context):
     write_log(update, context.error)
     print(f'Update {update} caused error {context.error}')
@@ -96,6 +112,7 @@ if __name__ == '__main__':
 
     app.add_handler(MessageHandler(filters.TEXT, handle_message))
     app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
+    app.add_handler(MessageHandler(filters.Document.PDF, handle_pdf))
 
     app.add_error_handler(error)
 

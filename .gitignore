@@ -3,7 +3,8 @@
 
 CORE.db
 testing.py
-
+to_install.md
+stages.md
 
 ### dotenv ###
 .env
