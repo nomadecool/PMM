@@ -78,6 +78,17 @@ def create_table():
             date_create TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now')),
             data TEXT
         );
+        CREATE TABLE IF NOT EXISTS regex (
+            id_regex INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_account INTEGER,
+            store_name TEXT,
+            regex_in TEXT,
+            regex_date TEXT,
+            regex_amount TEXT,
+            FOREIGN KEY (id_account) REFERENCES account(id_account) ON DELETE RESTRICT
+            UNIQUE(id_regex,store_name)
+            
+        );
     """
     some_database_operation(create_table, is_script=True)
 
