@@ -3,6 +3,8 @@ from PIL import Image, ImageEnhance
 from pdf2image import convert_from_path
 from pytesseract import TesseractError
 
+from odbc import write_log
+
 
 async def enhance_and_ocr(image, index):
     enhancer = ImageEnhance.Contrast(image)
@@ -13,6 +15,7 @@ async def enhance_and_ocr(image, index):
         text = pytesseract.image_to_string(enhanced_image)
     except TesseractError as e:
         print("Error in OCR: ", e)
+        write_log('OCR','Error in OCR',e)
         text = "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
     if not text:
         return "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
