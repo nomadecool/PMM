@@ -35,6 +35,7 @@ async def perform_ocr(image_path, is_pdf=False):
             texts.append(text)
 
     except IOError:
+        write_log('IOError','perform_ocr',"can't find file or read data")
         print("Error: can't find file or read data")
     if not texts:
         return "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
