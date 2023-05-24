@@ -1,6 +1,7 @@
 import pytesseract
 from PIL import Image, ImageEnhance
 from pdf2image import convert_from_path
+from pytesseract import TesseractError
 
 
 async def enhance_and_ocr(image, index):
@@ -8,8 +9,14 @@ async def enhance_and_ocr(image, index):
     enhance_value = 1.5
     enhanced_image = enhancer.enhance(enhance_value)
     enhanced_image.save(f'enhanced_image_{index}.jpg')
-    return pytesseract.image_to_string(enhanced_image)
-
+    try:
+        text = pytesseract.image_to_string(enhanced_image)
+    except TesseractError as e:
+        print("Error in OCR: ", e)
+        text = "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
+    if not text:
+        return "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
+    return text
 
 async def perform_ocr(image_path, is_pdf=False):
     texts = []
@@ -26,9 +33,11 @@ async def perform_ocr(image_path, is_pdf=False):
 
     except IOError:
         print("Error: can't find file or read data")
-
-    joined_text = '\n'.join(texts)
-    return joined_text
+    if not texts:
+        return "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
+    else:
+        joined_text = '\n'.join(texts)
+        return joined_text
 
 
 # Print the text

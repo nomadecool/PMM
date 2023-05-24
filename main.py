@@ -4,7 +4,7 @@ from ocr import perform_ocr
 from dotenv import load_dotenv
 import os
 from telegram import Update
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackContext
 from odbc import read_sql, write_log
 
 load_dotenv()  # take environment variables from .env.
@@ -68,7 +68,7 @@ async def handle_message(update, context):
     print('bot:', response)
     await update.message.reply_text(response)
 
-async def handle_photo(update: Update, context):
+async def handle_photo(update: Update, context: CallbackContext):
     # Get the photo file ID
     message = update.effective_message
     photo_file_id = message.photo[-1].file_id
@@ -78,6 +78,9 @@ async def handle_photo(update: Update, context):
     # Get the path to the image
     image_path = 'file_name.jpg'
     text = await perform_ocr(image_path)
+    print(text)
+    if not text:
+        text = "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
 
     await update.message.reply_text(text)
 
@@ -98,7 +101,8 @@ async def handle_pdf(update: Update, context):
     await update.message.reply_text(text)
 
 async def error(update, context):
-    write_log(update, context.error)
+    update_info = str(update)  # or format it as you want
+    write_log(update_info, context.error, 'error bot')
     print(f'Update {update} caused error {context.error}')
 
 
