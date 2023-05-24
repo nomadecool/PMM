@@ -21,22 +21,25 @@ def some_database_operation(sql, values=None, is_script=False):
             try:
                 cursor.executescript(sql)
             except Exception as e:
+                print(e)
                 table_name = extract_table_name(sql)
-                write_log(table_name, e)
+                write_log(table_name, e, sql)
         else:
             # Comprobar si tenemos valores para incluir en la consulta
             if values:
                 try:
                     cursor.execute(sql, values)
                 except Exception as e:
+                    print(e)
                     table_name = extract_table_name(sql)
-                    write_log(table_name, e)
+                    write_log(table_name, e, sql)
             else:
                 try:
                     cursor.execute(sql)
                 except Exception as e:
+                    print(e)
                     table_name = extract_table_name(sql)
-                    write_log(table_name, e)
+                    write_log(table_name, e, sql)
         conn.commit()
     print(f"Closed database connection with id {id(conn)}")
 
@@ -44,8 +47,8 @@ def some_database_operation(sql, values=None, is_script=False):
 
 
 
-def write_log(category, error):
-    error_message = str(error)
+def write_log(category, error, sql):
+    error_message = str(error) + '| - |' + str(sql)
     sql_log = """INSERT INTO logs (type, data) VALUES (?, ?)"""
     values_log = (category, error_message)
     try:
@@ -62,12 +65,13 @@ def extract_table_name(sql):
         return match.group(1)
 
 
+
 def write_data(sql, values):
     try:
         some_database_operation(sql, values)
     except sqlite3.IntegrityError as e:
         table_name = extract_table_name(sql)
-        write_log(table_name, e)
+        write_log(table_name, e, sql)
         print(f"An error occurred: {e}")
     finally:
         print("write_data ended")
