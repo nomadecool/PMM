@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7cb14a6-f6ec-43ec-a9db-409b7c79e782" name="Changes" comment="add versions">
+    <list default="true" id="b7cb14a6-f6ec-43ec-a9db-409b7c79e782" name="Changes" comment="fix empty text recognition bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ocr.py" beforeDir="false" afterPath="$PROJECT_DIR$/ocr.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,7 +298,28 @@
       <option name="project" value="LOCAL" />
       <updated>1684940263278</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fix empty text recognition bug">
+      <created>1684954814608</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1684954814608</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fix empty text recognition bug">
+      <created>1684955125587</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1684955125587</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix empty text recognition bug">
+      <created>1684955270844</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1684955270844</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -318,6 +338,7 @@
     <MESSAGE value="mejora estructura" />
     <MESSAGE value="arreglo write_log y demas" />
     <MESSAGE value="add versions" />
-    <option name="LAST_COMMIT_MESSAGE" value="add versions" />
+    <MESSAGE value="fix empty text recognition bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix empty text recognition bug" />
   </component>
 </project>

@@ -69,34 +69,40 @@ async def handle_message(update, context):
     await update.message.reply_text(response)
 
 async def handle_photo(update: Update, context: CallbackContext):
-    # Get the photo file ID
-    message = update.effective_message
-    photo_file_id = message.photo[-1].file_id
-    new_file = await context.bot.get_file(photo_file_id)
-    await new_file.download_to_drive('file_name.jpg')
+    if update.message.chat.id == ID_USER:
+        # Get the photo file ID
+        message = update.effective_message
+        photo_file_id = message.photo[-1].file_id
+        new_file = await context.bot.get_file(photo_file_id)
+        await new_file.download_to_drive('file_name.jpg')
 
-    # Get the path to the image
-    image_path = 'file_name.jpg'
-    text = await perform_ocr(image_path)
-    print(text)
-    if not text:
-        text = "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
+        # Get the path to the image
+        image_path = 'file_name.jpg'
+        text = await perform_ocr(image_path)
+        #print(text)
+        if not text:
+            text = "No se puede leer el texto. Por favor, toma nuevamente la foto o mejora la imagen."
+    else:
+        text = "No puedo ayudarlo con eso"
 
     await update.message.reply_text(text)
 
 
 async def handle_pdf(update: Update, context):
-    # Get the document from the message
-    document = update.message.document
-    #mime_type = document.mime_type
 
-    if document.mime_type == 'application/pdf':
-        print('PDF received.')
-        # Your code for handling the PDF goes here
-        pdf_file_id = document.file_id
-        new_file = await context.bot.get_file(pdf_file_id)
-        await new_file.download_to_drive('file_name.pdf')
-        text = await perform_ocr('file_name.pdf', is_pdf=True)
+    if update.message.chat.id == ID_USER:
+        # Get the document from the message
+        document = update.message.document
+        #mime_type = document.mime_type
+        if document.mime_type == 'application/pdf':
+            print('PDF received.')
+            # Your code for handling the PDF goes here
+            pdf_file_id = document.file_id
+            new_file = await context.bot.get_file(pdf_file_id)
+            await new_file.download_to_drive('file_name.pdf')
+            text = await perform_ocr('file_name.pdf', is_pdf=True)
+    else:
+        text = "No puedo ayudarlo con eso"
 
     await update.message.reply_text(text)
 
